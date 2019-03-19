@@ -29,7 +29,11 @@ const transitionStyles = {
 }
 
 const Transtion = ({ children, type, ...props }) => (
-  <AlertTransition {...props} timeout={duration}>
+  <AlertTransition
+    {...props}
+    timeout={duration}
+    onExit={() => console.log('exit')}
+  >
     {state => (
       <div
         style={{

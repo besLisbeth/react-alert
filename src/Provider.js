@@ -116,23 +116,17 @@ const Provider = ({
       {children}
       {root.current &&
         createPortal(
-          <>
+          <TransitionGroup appear exit style={containerStyle}>
             {Object.keys(alertsByPosition).map(position => (
-              <Wrapper
-                options={{ position, containerStyle }}
-                key={position}
-                {...props}
-              >
-                <TransitionGroup>
-                  {alertsByPosition[position].map(alert => (
-                    <Transition type={transition} key={alert.id} appear={true}>
-                      <AlertComponent style={{ margin: offset }} {...alert} />
-                    </Transition>
-                  ))}
-                </TransitionGroup>
+              <Wrapper options={{ position }} key={position}>
+                {alertsByPosition[position].map(alert => (
+                  <Transition type={transition} key={alert.id} {...props}>
+                    <AlertComponent style={{ margin: offset }} {...alert} />
+                  </Transition>
+                ))}
               </Wrapper>
             ))}
-          </>,
+          </TransitionGroup>,
           root.current
         )}
     </Context.Provider>

@@ -74,8 +74,10 @@ const Wrapper = ({
   const styles = useMemo(() => getStyles(position), [position])
 
   return (
-    <div style={{ ...styles, ...containerStyle }} {...props}>
-      {children}
+    <div style={{ ...styles, ...containerStyle }}>
+      {React.Children.map(children, child =>
+        React.cloneElement(child, { ...props })
+      )}
     </div>
   )
 }
